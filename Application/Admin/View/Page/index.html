@@ -1,0 +1,60 @@
+<include file="Index/header" title="{$title}"/>
+<div id="pagecontent"></div>
+
+<script>
+
+function xhpage(options){
+	var self=this;
+	this.$obj=options.$obj;
+	this.pagesize=options.pagesize==undefined?"10":options.pagesize;
+	this.pagenum=options.pagenum==undefined?"0":options.pagenum;
+}
+xhpage.prototype.init=function(){
+	var self=this;
+	//ul
+	var ul=document.createElement("ul");
+	ul.style="list-style:none;text-align:center";
+
+	//首页
+	var li=document.createElement("li");
+	li.id=this.$obj.id+"_header";
+	li.style="float:left;margin:0 5px;cursor:pointer";
+	li.innerHTML="首页";
+	ul.appendChild(li);
+
+	//前一页
+	var li=document.createElement("li");
+	li.id=this.$obj.id+"_pre";
+	li.style="float:left;margin:0 5px;line-height:20px";
+	li.innerHTML="<";
+	ul.appendChild(li);
+	//下一页
+	var li=document.createElement("li");
+	li.id=this.$obj.id+"_next";
+	li.style="float:left;margin:0 5px;line-height:20px";
+	li.innerHTML=">";
+	ul.appendChild(li);
+
+	//尾页
+	li=document.createElement("li");
+	li.id=this.$obj.id+"_footer";
+	li.style="float:left;margin:0 5px;cursor:not-allowed";
+	li.innerHTML="尾页";
+	ul.appendChild(li)
+
+
+	if(this.pagenum==0){
+		this.$obj.innerHTML="没有数据";
+
+	}
+	this.$obj.appendChild(ul);
+}
+var options={
+	"$obj":document.getElementById("pagecontent"),//分页控件div
+	"pagesize":"5",//每页的条数
+	"pagenum":"100"//一共有多少数据
+}
+var myxhpage=new xhpage(options);
+myxhpage.init();
+</script>
+<include file="Index/footer"/> 
